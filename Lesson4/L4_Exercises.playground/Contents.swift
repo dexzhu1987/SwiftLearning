@@ -87,9 +87,21 @@ if myMove == .rock && yourMove == .paper || myMove == .paper && yourMove == .roc
 } else if myMove == .rock && yourMove == .scissors || myMove == .scissors && yourMove == .rock {
     resultsMessage = "Rock crushes Scissors. "
 } else if myMove == .paper && yourMove == .scissors || myMove == .scissors && yourMove == .paper {
-    resultsMessage = "Scissors cut Paper."
+    resultsMessage = "Rock crushes Scissors. "
 }
+print(resultsMessage)
 
+switch (myMove, yourMove) {
+case (.rock, .paper),(.paper, .rock):
+    resultsMessage = "Paper covers Rock."
+case (.rock, .rock),(.paper, .paper),(.scissors, .scissors):
+    resultsMessage = "It's a tie!"
+case (.rock, .scissors),(.scissors, .rock):
+    resultsMessage = "Rock crushes Scissors. "
+case (.paper, .scissors),(.scissors, .paper):
+    resultsMessage = "Rock crushes Scissors. "
+}
+print(resultsMessage)
 //: ### Exercise 7
 //: Below is an if-else statement matching an assignment score to a letter grade.
 var score = 97
@@ -106,6 +118,16 @@ if 90...100 ~= score {
 } else {
     letterGrade = "Incomplete"
 }
+print(letterGrade)
+
+switch score {
+case 90...100: letterGrade = "A"
+case 80...89: letterGrade = "B"
+case 70...79: letterGrade = "C"
+case 60...69: letterGrade = "D"
+default:letterGrade = "Incomplete"
+}
+print(letterGrade)
 //: ### Exercise 8
 //: The if-else statement below translates a word into Pig Latin. Without using the "vowels" array, write an equivalent switch statement.
 
@@ -120,3 +142,16 @@ if vowels.contains(firstLetter) {
     word.remove(at: word.startIndex)
     newWord = "\(word)\(firstLetter)ay"
 }
+print(newWord)
+
+var word1 = "can"
+switch firstLetter {
+case "a": newWord = word1 + "yay"
+case "e": newWord = word1 + "yay"
+case "i": newWord = word1 + "yay"
+case "o": newWord = word1 + "yay"
+case "u": newWord = word1 + "yay"
+default:  word1.remove(at: word1.startIndex)
+newWord = "\(word1)\(firstLetter)ay"
+}
+print(newWord)
