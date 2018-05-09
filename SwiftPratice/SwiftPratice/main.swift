@@ -6,6 +6,8 @@
 //  Copyright © 2018 dexunzhu. All rights reserved.
 //
 
+import Foundation
+
 func sendTextMessage(_ message: String, to lover: String, in country: String) {
     print("To my love \(lover) in \(country): \(message).")
 }
@@ -53,3 +55,5 @@ var result4 = filterInts(numbers) { num in
 }
 
 print(result4)
+
+
