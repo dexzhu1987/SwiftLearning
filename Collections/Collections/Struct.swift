@@ -8,8 +8,8 @@
 
 import Foundation
 // Type - class(ref), struct(val), enum(val)
-//class - can be a parent, but need a constructor(init), and all values need to be inited
-//stuct - can not be a parent, but give default contructor, and values are inited
+//class - can be a parent/child, but need a constructor(init), and all values need to be inited
+//stuct - can not be a parent/child, but give default contructor, and values are inited
 struct Student : Hashable {
     var name: String
     private(set) var score: Int
