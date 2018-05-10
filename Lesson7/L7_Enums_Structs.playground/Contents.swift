@@ -122,38 +122,38 @@ classyFrameForMom.height = 7
 // enum, class, or struct? 
 // Uncomment each example one at a time as you guess the corresponding answer.
 
-// _____ Triangle {
-//    let angles = [30, 60, 90]
-//    let sides = [3,4,5]
-//}
+struct Triangle {
+    let angles = [30, 60, 90]
+    let sides = [3,4,5]
+}
 
-// _____ UIImagePickerControllerSourceType : Int {
-//    case photoLibrary
-//    case camera
-//    case savedPhotosAlbum
-//}
+enum UIImagePickerControllerSourceType : Int {
+    case photoLibrary
+    case camera
+    case savedPhotosAlbum
+}
 
-//_____ Name {
-//    var firstName: String
-//    var lastName: String
-//}
+struct Name {
+    var firstName: String
+    var lastName: String
+}
 
-//_____ Subject {
-//    case math
-//    case english
-//    case spanish
-//    case science
-//}
+enum Subject {
+    case math
+    case english
+    case spanish
+    case science
+}
 
-//_____ Student {
-//    var grades = [97.0, 99.0, 98.0]
-//    let name = Name(firstName:"Grace", lastName:"Hopper")
-//    var favoriteSubject = Subject.Science
-//
-//    var gradePointAverage: Double {
-//        get {
-//            return (grades.reduce(0){$0 + $1})/Double (grades.count)
-//        }
-//    }
-//}
+struct Student {
+    var grades = [97.0, 99.0, 98.0]
+    let name = Name(firstName:"Grace", lastName:"Hopper")
+    var favoriteSubject = Subject.science
+
+    var gradePointAverage: Double {
+        get {
+            return (grades.reduce(0){$0 + $1})/Double (grades.count)
+        }
+    }
+}
 
