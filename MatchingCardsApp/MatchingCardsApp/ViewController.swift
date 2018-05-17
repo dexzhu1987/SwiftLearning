@@ -10,16 +10,16 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    lazy var game = MatchCardGame(numberOfParisOfCards: (cardButtons.count+1)/2) // lazy means this property will not be init unitl the property is being accessed/used
+    private lazy var game = MatchCardGame(numberOfParisOfCards: (cardButtons.count+1)/2) // lazy means this property will not be init unitl the property is being accessed/used
     
-    var flipCount = 0 {
+    private var flipCount = 0 {
         didSet {
             flipLabel.text = "Flips: \(flipCount)"
         }
     }
     
-    @IBOutlet var cardButtons: [UIButton]! //select outlet Collection then ctl drap all the buttons to create an array
-    @IBOutlet weak var flipLabel: UILabel!
+    @IBOutlet private var cardButtons: [UIButton]! //select outlet Collection then ctl drap all the buttons to create an array
+    @IBOutlet private weak var flipLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,8 +66,8 @@ class ViewController: UIViewController {
         }
     }
     
-    var emojiChoices = ["👻","🎃","🦇","😈","👺","🙀", "👹", "😱", "🕯","😵"]
-    var emoji = [Int: String]()
+    private var emojiChoices = ["👻","🎃","🦇","😈","👺","🙀", "👹", "😱", "🕯","😵"]
+    private var emoji = [Int: String]()
     func emoji(for card: Card) -> String {
         if emoji[card.id] == nil, emojiChoices.count > 0 {
             let randomIndex = Int(arc4random_uniform(UInt32(emojiChoices.count)))

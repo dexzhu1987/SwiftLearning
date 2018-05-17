@@ -13,9 +13,29 @@ class MatchCardGame {
 
     var unshuffledCards = [Card]()
     var cards = [Card]()
-    var indexOfOneAndOnlyCardFaceUp: Int?
+    var indexOfOneAndOnlyCardFaceUp: Int?  {
+        get {
+            var foundIndex: Int?
+            for i in cards.indices {
+                if cards[i].isFaceUp {
+                    if foundIndex == nil {
+                        foundIndex = i
+                    } else {
+                        return nil
+                    }
+                }
+            }
+            return foundIndex
+        }
+        set {
+            for i in cards.indices {
+                cards[i].isFaceUp = (i == newValue)
+            }
+        }
+    }
     
     func chooseCard(at index: Int) {
+        assert(cards.indices.contains(index), "Match card game, chooseCard at \(index) is not in the indices")
         if !cards[index].isMatched {
             if let matchedIndex = indexOfOneAndOnlyCardFaceUp, matchedIndex != index { //  , == &&
                 if cards[index].id ==  cards[matchedIndex].id {
@@ -23,18 +43,16 @@ class MatchCardGame {
                     cards[index].isMatched = true
                 }
                 cards[index].isFaceUp = true
-                indexOfOneAndOnlyCardFaceUp = nil
+               
             } else {
-                for i in cards.indices {
-                    cards[i].isFaceUp = false
-                }
-                cards[index].isFaceUp = true
                 indexOfOneAndOnlyCardFaceUp = index
             }
         }
     }
     
     init(numberOfParisOfCards: Int) {
+        assert(numberOfParisOfCards > 0, "MatchCardGame init \(numberOfParisOfCards) must have at least 1 pare of cards")
+        
         for _ in 1...numberOfParisOfCards {
             let card = Card()
             unshuffledCards.append(card)
