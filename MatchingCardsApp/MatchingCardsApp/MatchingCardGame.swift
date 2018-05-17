@@ -9,7 +9,7 @@
 import Foundation
 
 
-class MatchCardGame {
+struct MatchCardGame {
 
     var unshuffledCards = [Card]()
     var cards = [Card]()
@@ -34,7 +34,7 @@ class MatchCardGame {
         }
     }
     
-    func chooseCard(at index: Int) {
+   mutating func chooseCard(at index: Int) {
         assert(cards.indices.contains(index), "Match card game, chooseCard at \(index) is not in the indices")
         if !cards[index].isMatched {
             if let matchedIndex = indexOfOneAndOnlyCardFaceUp, matchedIndex != index { //  , == &&

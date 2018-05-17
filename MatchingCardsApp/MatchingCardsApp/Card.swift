@@ -9,7 +9,7 @@
 import Foundation
 
 
-struct Card {
+struct Card: Hashable {
     var isFaceUp = false
     var isMatched = false
     var id: Int
@@ -23,5 +23,13 @@ struct Card {
     
     init() {
         self.id = Card.getId()
+    }
+    
+    var hashValue: Int {
+        return id * 12332
+    }
+    
+    static func == (lhs: Card, rhs: Card) -> Bool {
+        return lhs.id == rhs.id
     }
 }
