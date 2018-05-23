@@ -9,20 +9,26 @@
 import UIKit
 
 class ViewController: UIViewController {
+   
+
+    @IBOutlet weak var imageView: UIImageView!
     
-    @IBOutlet weak var canvasView: UIView!
+    var lastPoint = CGPoint.zero
+    var swiped = false
     
-    var path = UIBezierPath()
-    var startPoint = CGPoint()
-    var touchPoint = CGPoint()
-    var isEraser: Bool = false
+    var brushSize:CGFloat = 5.0
+    var red:CGFloat = 0.0
+    var green:CGFloat = 0.0
+    var blue:CGFloat = 0.0
+    var opacityValue:CGFloat = 1.0
     
+    var isDrawing = true
+    var selectedImage:UIImage!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        canvasView.clipsToBounds = true
-        canvasView.isMultipleTouchEnabled = false
+     
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,43 +37,85 @@ class ViewController: UIViewController {
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let touch = touches.first
-        if let point = touch?.location(in: canvasView) {
-            startPoint = point
+        swiped = false
+        if let touch = touches.first {
+            lastPoint = touch.location(in: self.view)
         }
-        
-      
-    }
- 
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let touch = touches.first
-        if let point = touch?.location(in: canvasView) {
-            touchPoint = point
-        }
-        
-        path.move(to: startPoint)
-        path.addLine(to: touchPoint)
-        startPoint = touchPoint
-        
-        draw()
     }
     
-
-    func draw() {
-        let stokeLayer = CAShapeLayer()
-        stokeLayer.fillColor = nil
-        stokeLayer.lineWidth = 5
-        stokeLayer.strokeColor = UIColor.black.cgColor
-        stokeLayer.path = path.cgPath
-        canvasView.layer.addSublayer(stokeLayer)
-        canvasView.setNeedsLayout()
+    func drawLines(fromPoint:CGPoint,toPoint:CGPoint) {
+        UIGraphicsBeginImageContext(self.view.frame.size)
+        imageView.image?.draw(in: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
+        let context = UIGraphicsGetCurrentContext()
+        
+        context?.move(to: CGPoint(x: fromPoint.x, y: fromPoint.y))
+        context?.addLine(to: CGPoint(x: toPoint.x, y: toPoint.y))
+       
+        
+        context?.setBlendMode(CGBlendMode.normal)
+        context?.setLineCap(CGLineCap.round)
+        context?.setLineWidth(brushSize)
+        context?.setStrokeColor(UIColor(red: red, green: green, blue: blue, alpha: opacityValue).cgColor)
+        
+        context?.strokePath()
+        
+        imageView.image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        swiped = true
+        
+        if let touch = touches.first {
+            let currentPoint = touch.location(in: self.view)
+            drawLines(fromPoint: lastPoint, toPoint: currentPoint)
+            
+            lastPoint = currentPoint
+        }
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if !swiped {
+            drawLines(fromPoint: lastPoint, toPoint: lastPoint)
+        }
     }
 
     @IBAction func eraser(_ sender: Any) {
-
-        path.removeAllPoints()
-        canvasView.layer.sublayers = nil
-        canvasView.setNeedsLayout()
-        
+        if (isDrawing) {
+            (red,green,blue) = (1,1,1)
+        } else {
+            (red,green,blue) = (0,0,0)
+        }
+        isDrawing = !isDrawing
      }
+    
+    
+    @IBAction func clear(_ sender: UIButton) {
+         self.imageView.image = nil
+    }
+    
+    @IBAction func colorsPicked(_ sender: AnyObject) {
+        if sender.tag == 0 {
+            (red,green,blue) = (1,0,0)
+        } else if sender.tag == 1 {
+            (red,green,blue) = (0,1,0)
+        } else if sender.tag == 2 {
+            (red,green,blue) = (0,0,1)
+        } else if sender.tag == 3 {
+            (red,green,blue) = (1,0,1)
+        } else if sender.tag == 4 {
+            (red,green,blue) = (1,1,0)
+        } else if sender.tag == 5 {
+            (red,green,blue) = (0,1,1)
+        } else if sender.tag == 6 {
+            (red,green,blue) = (1,1,1)
+        } else if sender.tag == 7 {
+            (red,green,blue) = (0,0,0)
+        }
+    }
+    
+    @IBAction func changeSize(_ sender: UISlider) {
+        isDrawing = true
+        brushSize = CGFloat(sender.value) * 50
+    }
 }
