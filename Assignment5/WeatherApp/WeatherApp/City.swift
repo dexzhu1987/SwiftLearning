@@ -11,8 +11,10 @@ import UIKit
 class City: NSObject {
 
     var weatherInform: String
+    var weatherDetail: UIImage
     
-    init(_ inform: String) {
+    init(_ inform: String, _ detail: UIImage) {
         self.weatherInform = inform
+        self.weatherDetail = detail
     }
 }
