@@ -3,7 +3,7 @@
 //  TableViewControllerDemo
 //
 //  Created by ping tseng tsai on 2018-05-25.
-//  Copyright © 2018 ping tseng tsai. All rights reserved.
+//  Copyright © 2018 ping dexun Zhu. All rights reserved.
 //
 
 import UIKit
@@ -11,13 +11,15 @@ import UIKit
 // - DataSource: how many cells, selctions
 // - Delegate: each cell what to show?, action?
 
-private var students = ["Lucas", "Keisuke", "Junpei", "Elif", "Haruka", "Ayako", "Hunter", "Alex", "Jessica", "Cadiz", "Dexun", "Miho", "Ryuma", "Tima", "Eric"]
 
-private var positions = ["Developer", "Developer", "Developer", "Designer", "Developer", "Developer", "Developer", "Developer", "Designer", "Designer", "Developer", "Developer", "Developer", "Designer", "Developer"]
 
 private var selectedCell: Int = 0
 
 class MyTableViewController: UITableViewController {
+    
+    static var students = ["Lucas", "Keisuke", "Junpei", "Elif", "Haruka", "Ayako", "Hunter", "Alex", "Jessica", "Cadiz", "Dexun", "Miho", "Ryuma", "Tima", "Eric"]
+    
+    static var positions = ["Developer", "Developer", "Developer", "Designer", "Developer", "Developer", "Developer", "Developer", "Designer", "Designer", "Developer", "Developer", "Developer", "Designer", "Developer"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,17 +38,17 @@ class MyTableViewController: UITableViewController {
     
     // how may rows
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return students.count
+        return MyTableViewController.students.count
     }
     
     // what to display
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! MyTableViewCell
         // configure the cell..
-        cell.faceImage.image = #imageLiteral(resourceName: "smile")
-        cell.nameLabel.text = students[indexPath.row]
-        cell.positionLabel.text = positions[indexPath.row]
-        
+        cell.faceImage.image = #imageLiteral(resourceName: "placeholder")
+        cell.nameLabel.text = MyTableViewController.students[indexPath.row]
+        cell.positionLabel.text = MyTableViewController.positions[indexPath.row]
+    
         return cell
     }
     
@@ -58,9 +60,9 @@ class MyTableViewController: UITableViewController {
                 if let cell = sender as? MyTableViewCell {
                     if let indexPath = tableView.indexPath(for: cell){
                         let selectedCell = indexPath.row
-                        detailVC.imageName = "smile"
-                        detailVC.nameText = students[selectedCell]
-                        detailVC.positionText = positions[selectedCell]
+                        detailVC.imageName = "placeholder"
+                        detailVC.nameText = MyTableViewController.students[selectedCell]
+                        detailVC.positionText = MyTableViewController.positions[selectedCell]
                     }
                 }
             }

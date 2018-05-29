@@ -132,25 +132,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     @objc func pushToNextVC2() {
         let newVC = tVC.detailedVC(city: tokyo)
-        vanVC.navigationController?.pushViewController(newVC, animated:
+        tVC.navigationController?.pushViewController(newVC, animated:
             true)
     }
     
     @objc func pushToNextVC3() {
         let newVC = bjVC.detailedVC(city: beijing)
-        vanVC.navigationController?.pushViewController(newVC, animated:
+        bjVC.navigationController?.pushViewController(newVC, animated:
             true)
     }
     
     @objc func pushToNextVC4() {
         let newVC = nyVC.detailedVC(city: newYork)
-        vanVC.navigationController?.pushViewController(newVC, animated:
+        nyVC.navigationController?.pushViewController(newVC, animated:
             true)
     }
     
     @objc func pushToNextVC5() {
         let newVC = lVC.detailedVC(city: london)
-        vanVC.navigationController?.pushViewController(newVC, animated:
+        lVC.navigationController?.pushViewController(newVC, animated:
             true)
     }
 }

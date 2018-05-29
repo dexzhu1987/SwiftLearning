@@ -14,6 +14,8 @@
 		0FF5719820B8A5FA00F3B139 /* MyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF5719720B8A5FA00F3B139 /* MyTableViewController.swift */; };
 		0FF5719A20B8BE4500F3B139 /* MyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF5719920B8BE4500F3B139 /* MyTableViewCell.swift */; };
 		0FF5719C20B8C52D00F3B139 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF5719B20B8C52D00F3B139 /* DetailViewController.swift */; };
+		0FF5719E20BC9C8000F3B139 /* MyCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF5719D20BC9C8000F3B139 /* MyCollectionViewController.swift */; };
+		0FF571A020BC9FDE00F3B139 /* MyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF5719F20BC9FDE00F3B139 /* MyCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		0FF5719720B8A5FA00F3B139 /* MyTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTableViewController.swift; sourceTree = "<group>"; };
 		0FF5719920B8BE4500F3B139 /* MyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTableViewCell.swift; sourceTree = "<group>"; };
 		0FF5719B20B8C52D00F3B139 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		0FF5719D20BC9C8000F3B139 /* MyCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollectionViewController.swift; sourceTree = "<group>"; };
+		0FF5719F20BC9FDE00F3B139 /* MyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +65,8 @@
 				0FF5718520B8A47B00F3B139 /* AppDelegate.swift */,
 				0FF5719720B8A5FA00F3B139 /* MyTableViewController.swift */,
 				0FF5719920B8BE4500F3B139 /* MyTableViewCell.swift */,
+				0FF5719D20BC9C8000F3B139 /* MyCollectionViewController.swift */,
+				0FF5719F20BC9FDE00F3B139 /* MyCollectionViewCell.swift */,
 				0FF5719B20B8C52D00F3B139 /* DetailViewController.swift */,
 				0FF5718920B8A47B00F3B139 /* Main.storyboard */,
 				0FF5718C20B8A47E00F3B139 /* Assets.xcassets */,
@@ -143,7 +149,9 @@
 			files = (
 				0FF5718620B8A47B00F3B139 /* AppDelegate.swift in Sources */,
 				0FF5719820B8A5FA00F3B139 /* MyTableViewController.swift in Sources */,
+				0FF571A020BC9FDE00F3B139 /* MyCollectionViewCell.swift in Sources */,
 				0FF5719A20B8BE4500F3B139 /* MyTableViewCell.swift in Sources */,
+				0FF5719E20BC9C8000F3B139 /* MyCollectionViewController.swift in Sources */,
 				0FF5719C20B8C52D00F3B139 /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
