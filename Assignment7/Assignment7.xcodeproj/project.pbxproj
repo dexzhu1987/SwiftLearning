@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		567E3A6620C0A4AA00648F97 /* MyImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567E3A6520C0A4AA00648F97 /* MyImage.swift */; };
 		56AD1DCD20BF3C2900BB728E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56AD1DCC20BF3C2900BB728E /* AppDelegate.swift */; };
 		56AD1DD220BF3C2B00BB728E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56AD1DD020BF3C2B00BB728E /* Main.storyboard */; };
 		56AD1DD420BF3C3B00BB728E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56AD1DD320BF3C3B00BB728E /* Assets.xcassets */; };
@@ -36,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		567E3A6520C0A4AA00648F97 /* MyImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyImage.swift; sourceTree = "<group>"; };
 		56AD1DC920BF3C2800BB728E /* Assignment7.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Assignment7.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56AD1DCC20BF3C2900BB728E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		56AD1DD120BF3C2B00BB728E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 				56AD1DD020BF3C2B00BB728E /* Main.storyboard */,
 				56AD1DFE20BF4D8000BB728E /* SectionHeaderView.swift */,
 				56AD1DFA20BF3EFE00BB728E /* MyCollectiveViewController.swift */,
+				567E3A6520C0A4AA00648F97 /* MyImage.swift */,
 				56AD1DFC20BF406F00BB728E /* MyCollectionViewCell.swift */,
 				56AD1DD320BF3C3B00BB728E /* Assets.xcassets */,
 				56AD1DD520BF3C3B00BB728E /* LaunchScreen.storyboard */,
@@ -264,6 +267,7 @@
 			files = (
 				56AD1DCD20BF3C2900BB728E /* AppDelegate.swift in Sources */,
 				56AD1DFD20BF406F00BB728E /* MyCollectionViewCell.swift in Sources */,
+				567E3A6620C0A4AA00648F97 /* MyImage.swift in Sources */,
 				56AD1DFB20BF3EFE00BB728E /* MyCollectiveViewController.swift in Sources */,
 				56AD1DFF20BF4D8000BB728E /* SectionHeaderView.swift in Sources */,
 			);
