@@ -27,97 +27,141 @@ class MyCollectiveViewController: UICollectionViewController {
         self.collectionView?.delegate = self
         longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongGesture(gestureRecognizer:)))
         self.collectionView?.addGestureRecognizer(longPressGesture)
+        let width = (self.view.frame.size.width - 20) / 3  // getting the size of the screen width - the size of 2 cell spacings
+        let layout =  collectionViewLayout as? UICollectionViewFlowLayout //geting the layout of the collective view item and casting a flow layout
+        layout?.itemSize = CGSize(width: width, height: width) //setting up the size of the item
+        
+       
+        let refresh = UIRefreshControl() //pull down to refresh to add items
+        refresh.addTarget(self, action: #selector(self.refresh), for: .valueChanged)
+        collectionView?.refreshControl = refresh
+        
+        navigationItem.leftBarButtonItem = editButtonItem //editing button from IOS - decidce isediting and func setEditing
     }
+    
+    @objc func refresh() {
+        if isEditing {
+            addItem()
+        }
+        collectionView?.refreshControl?.endRefreshing()
+    }
+    
+    func addItem() {
+        //adding new item
+        MyCollectiveViewController.photos.append(MyImage(image: UIImage(named: "10")!, tag1: "Vancouver", tag2: "Object3"))
+        if MyCollectiveViewController.photoCategories[0] == "Vancouver" {
+            MyCollectiveViewController.vancouver.append(UIImage(named: "10"))
+            let index = IndexPath(item: MyCollectiveViewController.vancouver.count-1, section: 0)
+            collectionView?.insertItems(at: [index])
+        } else {
+            MyCollectiveViewController.others.append(UIImage(named: "10"))
+            let index = IndexPath(item: MyCollectiveViewController.others.count-1, section: 2)
+            collectionView?.insertItems(at: [index])
+        }
+    }
+    
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        collectionView?.allowsMultipleSelection = editing
+        let indices = collectionView?.indexPathsForVisibleItems
+        for index in indices! {
+            let cell  = collectionView?.cellForItem(at: index) as! MyCollectionViewCell
+            cell.isEditing = editing
+            cell.check.image = UIImage(named: "Unchecked")!
+        }
+    }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-    
     }
     
    @objc func handleLongGesture(gestureRecognizer: UIGestureRecognizer) {
-        let longPress = gestureRecognizer as! UILongPressGestureRecognizer
-        let state = longPress.state
-        let locationInView = longPress.location(in: self.collectionView)
-        let indexPath =  collectionView?.indexPathForItem(at: locationInView)
-
-        struct My {
-            static var cellSnapshot : UIView? = nil
-            static var cellIsAnimating : Bool = false
-            static var cellNeedToShow : Bool = false
-        }
-        struct Path {
-            static var initialIndexPath : IndexPath? = nil
-        }
-
-        switch state {
-        case UIGestureRecognizerState.began:
-            if indexPath != nil {
-                Path.initialIndexPath = indexPath
-                let cell = collectionView?.cellForItem(at: indexPath!)
-                My.cellSnapshot  = snapshotOfCell(inputView: cell!)
-                
-                var center = cell?.center
-                My.cellSnapshot!.center = center!
-                My.cellSnapshot!.alpha = 0.0
-                collectionView?.addSubview(My.cellSnapshot!)
-                
-                UIView.animate(withDuration: 0.25, animations: { () -> Void in
-                    center?.y = locationInView.y
-                    My.cellIsAnimating = true
-                    My.cellSnapshot!.center = center!
-                    My.cellSnapshot!.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
-                    My.cellSnapshot!.alpha = 0.98
-                    cell?.alpha = 0.0
-                }, completion: { (finished) -> Void in
-                    if finished {
-                        My.cellIsAnimating = false
-                        if My.cellNeedToShow {
-                            My.cellNeedToShow = false
-                            UIView.animate(withDuration: 0.25, animations: { () -> Void in
-                                cell?.alpha = 1
-                            })
-                        } else {
-                            cell?.isHidden = true
-                        }
-                    }
-                })
+        if isEditing {
+            let longPress = gestureRecognizer as! UILongPressGestureRecognizer
+            let state = longPress.state
+            let locationInView = longPress.location(in: self.collectionView)
+            let indexPath =  collectionView?.indexPathForItem(at: locationInView)
+            
+            struct My {
+                static var cellSnapshot : UIView? = nil
+                static var cellIsAnimating : Bool = false
+                static var cellNeedToShow : Bool = false
+            }
+            struct Path {
+                static var initialIndexPath : IndexPath? = nil
             }
             
-        case UIGestureRecognizerState.changed:
-            if My.cellSnapshot != nil {
-                var center = My.cellSnapshot!.center
-                center.y = locationInView.y
-                My.cellSnapshot!.center = center
-                
-                if ((indexPath != nil) && (indexPath != Path.initialIndexPath)) {
-                    MyCollectiveViewController.vancouver.insert(MyCollectiveViewController.vancouver.remove(at: Path.initialIndexPath!.row), at: indexPath!.row)
-                    collectionView?.moveItem(at: Path.initialIndexPath!, to: indexPath!)
+            switch state {
+            case UIGestureRecognizerState.began:
+                if indexPath != nil {
                     Path.initialIndexPath = indexPath
-                }
-            }
-        default:
-            if Path.initialIndexPath != nil {
-                let cell = collectionView?.cellForItem(at: Path.initialIndexPath!)
-                if My.cellIsAnimating {
-                    My.cellNeedToShow = true
-                } else {
-                    cell?.isHidden = false
-                    cell?.alpha = 0.0
+                    let cell = collectionView?.cellForItem(at: indexPath!)
+                    My.cellSnapshot  = snapshotOfCell(inputView: cell!)
+                    
+                    var center = cell?.center
+                    My.cellSnapshot!.center = center!
+                    My.cellSnapshot!.alpha = 0.0
+                    collectionView?.addSubview(My.cellSnapshot!)
+                    
+                    UIView.animate(withDuration: 0.25, animations: { () -> Void in
+                        center?.y = locationInView.y
+                        My.cellIsAnimating = true
+                        My.cellSnapshot!.center = center!
+                        My.cellSnapshot!.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
+                        My.cellSnapshot!.alpha = 0.98
+                        cell?.alpha = 0.0
+                    }, completion: { (finished) -> Void in
+                        if finished {
+                            My.cellIsAnimating = false
+                            if My.cellNeedToShow {
+                                My.cellNeedToShow = false
+                                UIView.animate(withDuration: 0.25, animations: { () -> Void in
+                                    cell?.alpha = 1
+                                })
+                            } else {
+                                cell?.isHidden = true
+                            }
+                        }
+                    })
                 }
                 
-                UIView.animate(withDuration: 0.25, animations: { () -> Void in
-                    My.cellSnapshot!.center = (cell?.center)!
-                    My.cellSnapshot!.transform = CGAffineTransform.identity
-                    My.cellSnapshot!.alpha = 0.0
-                    cell?.alpha = 1.0
+            case UIGestureRecognizerState.changed:
+                if My.cellSnapshot != nil {
+                    var center = My.cellSnapshot!.center
+                    center.y = locationInView.y
+                    My.cellSnapshot!.center = center
                     
-                }, completion: { (finished) -> Void in
-                    if finished {
-                        Path.initialIndexPath = nil
-                        My.cellSnapshot!.removeFromSuperview()
-                        My.cellSnapshot = nil
+                    if ((indexPath != nil) && (indexPath != Path.initialIndexPath)) {
+                        MyCollectiveViewController.vancouver.insert(MyCollectiveViewController.vancouver.remove(at: Path.initialIndexPath!.row), at: indexPath!.row)
+                        collectionView?.moveItem(at: Path.initialIndexPath!, to: indexPath!)
+                        Path.initialIndexPath = indexPath
                     }
-                })
+                }
+            default:
+                if Path.initialIndexPath != nil {
+                    let cell = collectionView?.cellForItem(at: Path.initialIndexPath!)
+                    if My.cellIsAnimating {
+                        My.cellNeedToShow = true
+                    } else {
+                        cell?.isHidden = false
+                        cell?.alpha = 0.0
+                    }
+                    
+                    UIView.animate(withDuration: 0.25, animations: { () -> Void in
+                        My.cellSnapshot!.center = (cell?.center)!
+                        My.cellSnapshot!.transform = CGAffineTransform.identity
+                        My.cellSnapshot!.alpha = 0.0
+                        cell?.alpha = 1.0
+                        
+                    }, completion: { (finished) -> Void in
+                        if finished {
+                            Path.initialIndexPath = nil
+                            My.cellSnapshot!.removeFromSuperview()
+                            My.cellSnapshot = nil
+                        }
+                    })
+                }
             }
         }
     }
@@ -140,7 +184,6 @@ class MyCollectiveViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
     }
-
 
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -170,19 +213,21 @@ class MyCollectiveViewController: UICollectionViewController {
         cell.addGestureRecognizer(doubletaps)
         if indexPath.section == 0 {
             image.image = MyCollectiveViewController.vancouver[indexPath.row]
+            cell.isEditing = isEditing
             return cell
         } else if indexPath.section == 1  {
             image.image = MyCollectiveViewController.hongkong[indexPath.row]
+            cell.isEditing = isEditing
             return cell
         } else {
             image.image = MyCollectiveViewController.others[indexPath.row]
+            cell.isEditing = isEditing
             return cell
         }
 
     }
 
     @objc func pinchGesture(sender:  UIPinchGestureRecognizer)  {
-       
         switch sender.state {
         case .began, .changed:
             sender.view?.transform = (sender.view?.transform.scaledBy(x: sender.scale, y: sender.scale))!
@@ -196,23 +241,26 @@ class MyCollectiveViewController: UICollectionViewController {
     }
     
     @objc func doubleTapped(sender:  UITapGestureRecognizer) {
-        if let indexPath = collectionView?.indexPathForItem(at: sender.location(in: self.collectionView)){
-            var removedImage: UIImage
-            if indexPath.section == 0 {
-              removedImage = MyCollectiveViewController.vancouver.remove(at: indexPath.row)!
-            } else if indexPath.section == 1  {
-              removedImage =  MyCollectiveViewController.hongkong.remove(at: indexPath.row)!
-            } else {
-              removedImage =  MyCollectiveViewController.others.remove(at: indexPath.row)!
-            }
-            for image in MyCollectiveViewController.photos {
-                if image.image == removedImage {
-                    if let index = MyCollectiveViewController.photos.index(of: image) {
-                         MyCollectiveViewController.photos.remove(at: index)
+        if isEditing {
+            if let indexPath = collectionView?.indexPathForItem(at: sender.location(in: self.collectionView)){
+                var removedImage: UIImage
+                if indexPath.section == 0 {
+                    removedImage = MyCollectiveViewController.vancouver.remove(at: indexPath.row)!
+                } else if indexPath.section == 1  {
+                    removedImage =  MyCollectiveViewController.hongkong.remove(at: indexPath.row)!
+                } else {
+                    removedImage =  MyCollectiveViewController.others.remove(at: indexPath.row)!
+                }
+                for image in MyCollectiveViewController.photos {
+                    if image.image == removedImage {
+                        if let index = MyCollectiveViewController.photos.index(of: image) {
+                            MyCollectiveViewController.photos.remove(at: index)
+                            break
+                        }
                     }
                 }
+                self.collectionView?.deleteItems(at: [indexPath])
             }
-            self.collectionView?.deleteItems(at: [indexPath])
         }
     }
     

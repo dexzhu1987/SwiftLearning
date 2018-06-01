@@ -36,16 +36,26 @@
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wdo-uN-DyA">
                                             <rect key="frame" x="0.0" y="0.0" width="115" height="115"/>
                                         </imageView>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Unchecked" translatesAutoresizingMaskIntoConstraints="NO" id="ATV-C4-pnH">
+                                            <rect key="frame" x="85" y="85" width="30" height="30"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="30" id="Flt-bz-1vK"/>
+                                                <constraint firstAttribute="height" constant="30" id="H0Q-t3-1dS"/>
+                                            </constraints>
+                                        </imageView>
                                     </subviews>
                                 </view>
                                 <color key="backgroundColor" red="1" green="0.49327188729999999" blue="0.47399842739999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="wdo-uN-DyA" firstAttribute="top" secondItem="MXF-F3-XOp" secondAttribute="top" id="05x-Pj-OzL"/>
                                     <constraint firstAttribute="bottom" secondItem="wdo-uN-DyA" secondAttribute="bottom" id="3hf-4W-uWF"/>
+                                    <constraint firstAttribute="trailing" secondItem="ATV-C4-pnH" secondAttribute="trailing" id="975-VH-Rko"/>
                                     <constraint firstAttribute="trailing" secondItem="wdo-uN-DyA" secondAttribute="trailing" id="kZt-Ni-2bg"/>
+                                    <constraint firstAttribute="bottom" secondItem="ATV-C4-pnH" secondAttribute="bottom" id="l6u-Ht-jFw"/>
                                     <constraint firstItem="wdo-uN-DyA" firstAttribute="leading" secondItem="MXF-F3-XOp" secondAttribute="leading" id="ooc-g9-cg5"/>
                                 </constraints>
                                 <connections>
+                                    <outlet property="check" destination="ATV-C4-pnH" id="N7G-85-v10"/>
                                     <outlet property="imageView" destination="wdo-uN-DyA" id="cFF-17-97e"/>
                                 </connections>
                             </collectionViewCell>
@@ -113,4 +123,7 @@
             <point key="canvasLocation" x="-188" y="-760.34482758620697"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Unchecked" width="22" height="22"/>
+    </resources>
 </document>
