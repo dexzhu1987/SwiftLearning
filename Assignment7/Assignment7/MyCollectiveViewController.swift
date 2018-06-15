@@ -30,7 +30,7 @@ class MyCollectiveViewController: UICollectionViewController {
         let width = (self.view.frame.size.width - 20) / 3  // getting the size of the screen width - the size of 2 cell spacings
         let layout =  collectionViewLayout as? UICollectionViewFlowLayout //geting the layout of the collective view item and casting a flow layout
         layout?.itemSize = CGSize(width: width, height: width) //setting up the size of the item
-        
+        layout?.sectionHeadersPinToVisibleBounds = true //setting up the section header pin to the top (or stick to the top) when scrolling
        
         let refresh = UIRefreshControl() //pull down to refresh to add items
         refresh.addTarget(self, action: #selector(self.refresh), for: .valueChanged)
